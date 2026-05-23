@@ -7,7 +7,7 @@ services:
     ports:
       - ${NAVIDROME_PORT:-4533}:4533
     volumes:
-      - ${NAVIDROME_DATA_PATH:-./data}:/var/www/html/data
+      - ${NAVIDROME_DATA_VOLUME:-navidrome-data}:/data
       - ${MUSIC_PATH}:/music:ro
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
@@ -25,4 +25,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  navidrome-cache: {}
+  navidrome-data: {}
