@@ -4,11 +4,16 @@ services:
     image: deluan/navidrome:${NAVIDROME_VERSION:-latest}
     user: ${HOST_USER_ID:-0}:${HOST_GROUP_ID:-0}
     env_file: environment.d/navidrome.env
+    environment:
+      ND_BACKUP_PATH: /backups
+      ND_PLUGINS_ENABLED: true
+      ND_PLUGINS_AUTORELOAD: true
     ports:
       - ${NAVIDROME_PORT:-4533}:4533
     volumes:
-      - ${NAVIDROME_DATA_VOLUME:-navidrome-data}:/data
       - ${MUSIC_PATH}:/music:ro
+      - ${BACKUPS_PATH:-./backups}:/backups
+      - ${NAVIDROME_DATA_VOLUME:-navidrome-data}:/data
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
 

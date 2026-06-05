@@ -10,19 +10,33 @@ Installation
 
   1. Clone the repository
 
-         git clone git@github.com:PHLAK/navidrome-compose.git
+          git clone https://github.com/PHLAK/navidrome-compose.git
 
   2. Initialize the configuration files
 
-          make init
-
-     or manually run the commands in `Makefile`
+           make init
 
   3. Set the environment variables in `.env`
 
   4. Run `docker compose config` to validate and confirm your configuration
 
   5. Run `docker compose up -d` to start the containers
+
+Updating
+--------
+
+  1. Fetch latest file changes from the repository
+
+         git pull --ff-only
+
+  2. If necessary, initialize new configuration files
+
+         make init
+
+  3. Pull new images and restart containers
+
+         docker compose pull
+         docker compose up -d
 
 Configuration
 -------------
