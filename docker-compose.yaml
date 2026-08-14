@@ -18,7 +18,7 @@ services:
     restart: unless-stopped
 
   audiomuse-ai-flask:
-    image: ghcr.io/neptunehub/audiomuse-ai:${AUDIOMUSE_AI_IMAGE_VERSION:-latest}
+    image: ghcr.io/neptunehub/audiomuse-ai:${AUDIOMUSE_VERSION:-latest}
     depends_on: [database]
     environment:
       SERVICE_TYPE: flask
@@ -37,7 +37,7 @@ services:
     restart: unless-stopped
 
   audiomuse-ai-worker:
-    image: ghcr.io/neptunehub/audiomuse-ai:${AUDIOMUSE_AI_IMAGE_VERSION:-latest}
+    image: ghcr.io/neptunehub/audiomuse-ai:${AUDIOMUSE_VERSION:-latest}
     depends_on: [database]
     environment:
       SERVICE_TYPE: worker
