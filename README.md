@@ -41,12 +41,10 @@ Updating
 Configuration
 -------------
 
-Your Navidrome installation can be configured by adding environment variables to
-the `environment.d/navidrome.env` file.
-
-See the [Navidrome Configuration Options](https://www.navidrome.org/docs/usage/configuration/options/)
-for the list of available environment variables and what they do.
+Your installation can be configured by defining environment variables in the
+`environment.d/*.env` files. Reference the documentation for the individual
+apps for available environment variables and their purpose.
 
 > [!IMPORTANT]
-> After modifying `environment.d/navidrome.env` you must restart your containers
+> After modifying files in `environment.d` you must restart your containers
 > (i.e. `docker compose up -d`) for the changes to apply.
