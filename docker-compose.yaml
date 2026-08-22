@@ -17,58 +17,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
 
-  audiomuse-ai-flask:
-    image: ghcr.io/neptunehub/audiomuse-ai:${AUDIOMUSE_VERSION:-latest}
-    depends_on: [database]
-    environment:
-      SERVICE_TYPE: flask
-      POSTGRES_HOST: ${DATABASE_HOST:-database}
-      POSTGRES_PORT: ${DATABASE_PORT:-5432}
-      POSTGRES_DB: ${DATABASE_NAME:-audiomuse}
-      POSTGRES_USER: ${DATABASE_USER:-audiomuse}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      TEMP_DIR: /app/temp_audio
-    ports:
-      - ${AUDIOMUSE_PORT:-8000}:8000
-    volumes:
-      - ${AUDIOMUSE_FLASK_TEMP_AUDIO_VOLUME:-flask-temp-audio}:/app/temp_audio
-      - ${AUDIOMUSE_FLASK_PLUGINS_VOLUME:-flask-plugins}:/app/plugin/installed
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-
-  audiomuse-ai-worker:
-    image: ghcr.io/neptunehub/audiomuse-ai:${AUDIOMUSE_VERSION:-latest}
-    depends_on: [database]
-    environment:
-      SERVICE_TYPE: worker
-      POSTGRES_HOST: ${DATABASE_HOST:-database}
-      POSTGRES_PORT: ${DATABASE_PORT:-5432}
-      POSTGRES_DB: ${DATABASE_NAME:-audiomuse}
-      POSTGRES_USER: ${DATABASE_USER:-audiomuse}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      TEMP_DIR: /app/temp_audio
-    volumes:
-      - ${AUDIOMUSE_WORKER_TEMP_AUDIO_VOLUME:-worker-temp-audio}:/app/temp_audio
-      - ${AUDIOMUSE_WORKER_PLUGINS_VOLUME:-worker-plugins}:/app/plugin/installed
-      - /etc/localtime:/etc/localtime:ro
-    labels:
-      com.centurylinklabs.watchtower.scope: ${COMPOSE_PROJECT_NAME}
-    restart: unless-stopped
-
-  database:
-    image: postgres:${POSTGRESS_IMAGE_VERSION:-18.4}
-    env_file: environment.d/postgres.env
-    environment:
-      POSTGRES_DB: ${DATABASE_NAME:-audiomuse}
-      POSTGRES_USER: ${DATABASE_USER:-audiomuse}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    volumes:
-      - ${DATABASE_VOLUME:-postgres-data}:/var/lib/postgresql
-      - /etc/localtime:/etc/localtime:ro
-    labels:
-      com.centurylinklabs.watchtower.scope: ${COMPOSE_PROJECT_NAME}
-    restart: unless-stopped
-
   watchtower:
     image: nickfedor/watchtower:${WATCHTOWER_VERSION:-latest}
     env_file: environment.d/watchtower.env
@@ -83,8 +31,3 @@ services:
 
 volumes:
   navidrome-data: {}
-  flask-plugins: {}
-  flask-temp-audio: {}
-  worker-plugins: {}
-  worker-temp-audio: {}
-  postgres-data: {}
