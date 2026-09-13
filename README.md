@@ -22,6 +22,17 @@ Installation
 
   5. Run `docker compose up -d` to start the containers
 
+Configuration
+-------------
+
+Your installation can be configured by defining environment variables in the
+`environment.d/*.env` files. Reference the documentation for the individual
+apps for available environment variables and their purpose.
+
+> [!IMPORTANT]
+> After modifying files in `environment.d` you must restart your containers
+> (i.e. `docker compose up -d`) for the changes to apply.
+
 Updating
 --------
 
@@ -37,14 +48,3 @@ Updating
 
          docker compose pull
          docker compose up -d
-
-Configuration
--------------
-
-Your installation can be configured by defining environment variables in the
-`environment.d/*.env` files. Reference the documentation for the individual
-apps for available environment variables and their purpose.
-
-> [!IMPORTANT]
-> After modifying files in `environment.d` you must restart your containers
-> (i.e. `docker compose up -d`) for the changes to apply.
